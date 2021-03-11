@@ -1,24 +1,25 @@
 package main
 
-import "log"
+import (
+	"log"
+	"time"
+)
 
-func main() {
-	var whatToSay string = "yo"
-	var dude string
-	var result string
-	var result2 string
-	var i int
+var s = "seven"
 
-	result, dude = saySomething(whatToSay)
-	log.Print(result + dude)
-
-	result2, dude = saySomething("something else")
-	log.Print(result2 + dude)
-
-	i = 7
-	log.Println(i)
+type User struct {
+	FirstName   string
+	LastName    string
+	PhoneNumber string
+	Age         int
+	BirthDate   time.Time
 }
 
-func saySomething(s string) (string, string) {
-	return s, "dude"
+func main() {
+	user := User{
+		LastName:  "Wilshere",
+		FirstName: "Jack",
+	}
+
+	log.Println(user.FirstName, user.LastName, user.PhoneNumber)
 }
