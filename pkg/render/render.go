@@ -1,18 +1,37 @@
 package render
 
 import (
+	"bytes"
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 	"path/filepath"
 )
 
 // helper that goes into the templates directory and renders the corresponding HTML template
 func RenderTemplate (w http.ResponseWriter, tmpl string) {
-	_, err := RenderTemplateTest(w)
+	templateCache, err := createTemplateCache()
+
+	fmt.Println("error happened yo! ", templateCache)
 
 	if err != nil {
-		fmt.Println("error getting template from the templace cache", err)
+		log.Fatal(err)
+	}
+
+	template, doesTemplateExist := templateCache[tmpl]
+
+	if !doesTemplateExist {
+		log.Fatal(err)
+	}
+
+	buffer := new(bytes.Buffer)
+	_ = template.Execute(buffer, nil)
+
+	_, err = buffer.WriteTo(w)
+
+	if err != nil {
+		log.Fatal("error writing template to browser")
 	}
 
 	parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl)
@@ -25,7 +44,8 @@ func RenderTemplate (w http.ResponseWriter, tmpl string) {
 
 var functions = template.FuncMap{}
 
-func RenderTemplateTest(w http.ResponseWriter) (map[string]*template.Template, error) {
+// CreateTemplateCache creates a template cache as a map
+func createTemplateCache() (map[string]*template.Template, error) {
 	// creating a map
 	myCache := map[string]*template.Template{}
 
@@ -38,6 +58,7 @@ func RenderTemplateTest(w http.ResponseWriter) (map[string]*template.Template, e
 
 	// handling err for pages
 	if err != nil {
+		fmt.Println("breaking here")
 		return myCache, err
 	}
 
