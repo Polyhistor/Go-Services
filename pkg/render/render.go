@@ -2,46 +2,45 @@ package render
 
 import (
 	"bytes"
-	"fmt"
+	"github.com/polyhistor/go-service/pkg/config"
 	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
 )
 
+var app *config.AppConfig
+
+// NewTemplates sets the config for the template package
+func NewTemplate(a *config.AppConfig) {
+	app = a
+}
+
 // helper that goes into the templates directory and renders the corresponding HTML template
 func RenderTemplate (w http.ResponseWriter, tmpl string) {
-	templateCache, err := createTemplateCache()
-	fmt.Println(templateCache)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// get the template cache from the app config
+	templateCache := app.TemplateCache
 
 	template, doesTemplateExist := templateCache[tmpl]
+
 	if !doesTemplateExist {
-		log.Fatal(err)
+		log.Fatal("could not get template from template cache")
 	}
 
 	buffer := new(bytes.Buffer)
 	_ = template.Execute(buffer, nil)
-	_, err = buffer.WriteTo(w)
+	_, err := buffer.WriteTo(w)
 
 	if err != nil {
 		log.Fatal("error writing template to browser")
 	}
 
-	//parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl)
-	//err = parsedTemplate.Execute(w, nil)
-	//
-	//if err != nil {
-	//	fmt.Println("error parsing template")
-	//}
 }
 
 var functions = template.FuncMap{}
 
 // CreateTemplateCache creates a template cache as a map
-func createTemplateCache() (map[string]*template.Template, error) {
+func CreateTemplateCache() (map[string]*template.Template, error) {
 	// creating a map
 	myCache := map[string]*template.Template{}
 
