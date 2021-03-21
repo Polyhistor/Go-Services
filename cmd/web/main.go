@@ -11,7 +11,6 @@ import (
 
 var portNumber = ":8080"
 
-// main is the main application function
 func main() {
 	var app config.AppConfig
 
