@@ -2,11 +2,12 @@ package render
 
 import (
 	"bytes"
-	"github.com/polyhistor/go-service/pkg/config"
 	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/polyhistor/go-service/pkg/config"
 )
 
 var app *config.AppConfig
@@ -17,7 +18,7 @@ func NewTemplate(a *config.AppConfig) {
 }
 
 // helper that goes into the templates directory and renders the corresponding HTML template
-func RenderTemplate (w http.ResponseWriter, tmpl string) {
+func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	// get the template cache from the app config
 	templateCache := app.TemplateCache
 

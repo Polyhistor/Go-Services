@@ -2,27 +2,31 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"net/http"
+
 	"github.com/polyhistor/go-service/pkg/config"
 	"github.com/polyhistor/go-service/pkg/handlers"
 	"github.com/polyhistor/go-service/pkg/render"
-	"log"
-	"net/http"
 )
 
 var portNumber = ":8080"
 
 func main() {
 	var app config.AppConfig
+	console.blog("yo")
 
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
 		log.Fatal("cannot create template cache")
 	}
 
+	//#region
 	app.TemplateCache = tc
 	repo := handlers.NewRepo(&app)
 	handlers.NewHandlers(repo)
 
+	//#endregion
 	render.NewTemplate(&app)
 
 	http.HandleFunc("/", handlers.Repo.Home)
