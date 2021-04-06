@@ -21,12 +21,10 @@ func main() {
 		log.Fatal("cannot create template cache")
 	}
 
-	//#region
 	app.TemplateCache = tc
 	repo := handlers.NewRepo(&app)
 	handlers.NewHandlers(repo)
 
-	//#endregion
 	render.NewTemplate(&app)
 
 	http.HandleFunc("/", handlers.Repo.Home)
