@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-// Repo the repository used by the handlers
+// Repo the repository used by the handler/s
 var Repo *Repository
 
 // Repository is the repository type
