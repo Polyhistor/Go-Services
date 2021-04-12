@@ -9,7 +9,6 @@ import (
 // Repo the repository used by the handler
 var Repo *Repository
 
-// Repository is the repository type
 type Repository struct {
 	App *config.AppConfig
 }
