@@ -13,7 +13,7 @@ type Repository struct {
 	App *config.AppConfig
 }
 
-// NewRepo creates a new repository
+
 func NewRepo(a *config.AppConfig) *Repository {
 	return &Repository {
 		App: a,
