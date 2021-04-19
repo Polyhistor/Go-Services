@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-// Repo the repository used by the handler
+// Repo the repository used by the handler (repository pattern)
 var Repo *Repository
 
 type Repository struct {
