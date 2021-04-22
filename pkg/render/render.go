@@ -12,7 +12,7 @@ import (
 
 var app *config.AppConfig
 
-// NewTemplates sets the config for the template package
+// NewTemplates sets the config for the template package..
 func NewTemplate(a *config.AppConfig) {
 	app = a
 }
