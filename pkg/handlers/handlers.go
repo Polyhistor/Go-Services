@@ -25,7 +25,7 @@ func NewHandlers(r *Repository) {
 	Repo = r
 }
 
-// Home is the home page handler - this is a method
+// Home is the home page handler
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
 	render.RenderTemplate(w, "home.page.tmpl")
 }
